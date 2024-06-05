@@ -1,73 +1,85 @@
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatelessWidget {
+  final double elementSpacing = 16.0; // Adjust this value to control spacing between elements
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.green,
             ),
-            child: Text(
-              'Menu',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+            child: Center(
+              child: Text(
+                'My school life',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            onTap: () {
-              Navigator.pushNamed(context, '/');
-            },
+          _buildDrawerItem(
+            context,
+            text: 'Home',
+            routeName: '/',
           ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Profile'),
-            onTap: () {
-              Navigator.pushNamed(context, '/profile');
-            },
+          _buildDrawerItem(
+            context,
+            text: 'Profile',
+            routeName: '/profile',
           ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {
-              Navigator.pushNamed(context, '/settings');
-            },
+          _buildDrawerItem(
+            context,
+            text: 'Settings',
+            routeName: '/settings',
           ),
-          ListTile(
-            leading: Icon(Icons.business),
-            title: Text('Register Business'),
-            onTap: () {
-              Navigator.pushNamed(context, '/register-business');
-            },
+          _buildDrawerItem(
+            context,
+            text: 'Register Business',
+            routeName: '/register-business',
           ),
-          ListTile(
-            leading: Icon(Icons.contact_mail),
-            title: Text('Contact My School Life'),
-            onTap: () {
-              Navigator.pushNamed(context, '/contact-my-school-life');
-            },
+          _buildDrawerItem(
+            context,
+            text: 'Contact My School Life',
+            routeName: '/contact-my-school-life',
           ),
-          ListTile(
-            leading: Icon(Icons.school),
-            title: Text('Add a School'),
-            onTap: () {
-              Navigator.pushNamed(context, '/add-school');
-            },
+          _buildDrawerItem(
+            context,
+            text: 'Add a School',
+            routeName: '/add-school',
           ),
-          ListTile(
-            leading: Icon(Icons.info),
-            title: Text('About My School Life'),
-            onTap: () {
-              Navigator.pushNamed(context, '/about-my-school-life');
-            },
+          _buildDrawerItem(
+            context,
+            text: 'About My School Life',
+            routeName: '/about-my-school-life',
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildDrawerItem(BuildContext context, {required String text, required String routeName}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: elementSpacing / 2),
+      child: ListTile(
+        title: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pushNamed(context, routeName);
+        },
       ),
     );
   }

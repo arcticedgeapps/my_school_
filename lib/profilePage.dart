@@ -9,7 +9,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Profile'),
+      appBar: CustomAppBar(title: 'Update your info'),
       drawer: DrawerMenu(),
       body: Center(
         child: SingleChildScrollView(
@@ -84,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                     },
                     child: Text('Edit Profile'),
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.blue, // Text color
+                      foregroundColor: Colors.white, backgroundColor: Colors.green, // Text color
                       minimumSize: Size(double.infinity, 50), // Width and Height
                       padding: EdgeInsets.symmetric(horizontal: 20), // Horizontal padding
                       textStyle: TextStyle(fontSize: 18), // Text size
