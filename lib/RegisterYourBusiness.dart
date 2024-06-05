@@ -3,72 +3,133 @@ import 'package:my_school_life/Components/custom_app_bar.dart';
 import 'package:my_school_life/Components/drawer_menu.dart';
 
 class RegisterBusinessPage extends StatelessWidget {
+  final double elementSpacing = 16.0; // Adjust this value to control spacing between elements
+  final double elementWidth = 300.0; // Adjust this value to control the width of elements
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Register Your Business'),
       drawer: DrawerMenu(),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            Center(
-              child: Text(
-                'Register my business',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: elementWidth,
+                  child: Center(
+                    child: Text(
+                      'Enter your details',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(height: elementSpacing / 2),
+                Container(
+                  width: elementWidth,
+                  child: Center(
+                    child: Text(
+                      'List your company on the app for only\nR250/year..',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildTextField('Company name'),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildTextField('Company email'),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildTextField('Company address'),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildTextField('Company number'),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildTextField('Upload logo'),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildTextField('About', maxLines: 4),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildTextField('Reg number'),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildTextField('Main category'),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildTextField('Sub category'),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: Center(
+                    child: Text(
+                      'Payments made through the app allow\nyour listing to go live instantly. EFT\npayments may delay your listing going\nlive as we will need to send you an\ninvoice manually.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: _buildCheckbox('Pay now'),
+                ),
+                Container(
+                  width: elementWidth,
+                  child: _buildCheckbox('Request EFT invoice'),
+                ),
+                Container(
+                  width: elementWidth,
+                  child: _buildCheckbox('Accept T&C\'s'),
+                ),
+                SizedBox(height: elementSpacing),
+                Container(
+                  width: elementWidth,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Add logic for form submission later
+                    },
+                    child: Text('Submit'),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white, backgroundColor: Colors.green, // Text color
+                      minimumSize: Size(double.infinity, 50), // Width and Height
+                      padding: EdgeInsets.symmetric(horizontal: 20), // Horizontal padding
+                      textStyle: TextStyle(fontSize: 18), // Text size
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero, // Straight border
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 8.0),
-            Center(
-              child: Text(
-                'List your company on the app for only\nR250/year..',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
-            SizedBox(height: 16.0),
-            _buildTextField('Company name'),
-            SizedBox(height: 16.0),
-            _buildTextField('Company email'),
-            SizedBox(height: 16.0),
-            _buildTextField('Company address'),
-            SizedBox(height: 16.0),
-            _buildTextField('Company number'),
-            SizedBox(height: 16.0),
-            _buildTextField('Upload logo'),
-            SizedBox(height: 16.0),
-            _buildTextField('About', maxLines: 4),
-            SizedBox(height: 16.0),
-            _buildTextField('Reg number'),
-            SizedBox(height: 16.0),
-            _buildTextField('Main category'),
-            SizedBox(height: 16.0),
-            _buildTextField('Sub category'),
-            SizedBox(height: 16.0),
-            Center(
-              child: Text(
-                'Payments made through the app allow\nyour listing to go live instantly. EFT\npayments may delay your listing going\nlive as we will need to send you an\ninvoice manually.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14),
-              ),
-            ),
-            SizedBox(height: 16.0),
-            _buildCheckbox('Pay now'),
-            _buildCheckbox('Request EFT invoice'),
-            _buildCheckbox('Accept T&C\'s'),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                // Add logic for form submission later
-              },
-              child: Text('Submit'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                textStyle: TextStyle(fontSize: 18),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
