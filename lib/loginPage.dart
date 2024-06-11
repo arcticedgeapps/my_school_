@@ -3,32 +3,34 @@ import 'package:flutter/material.dart';
 import 'Components/custom_app_bar.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Login'), // Reusing CustomAppBar
+      appBar: const CustomAppBar(title: 'Login'), // Reusing CustomAppBar
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Welcome Back!',
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 40),
-            TextField(
+            const SizedBox(height: 40),
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.email),
               ),
             ),
-            SizedBox(height: 20),
-            TextField(
+            const SizedBox(height: 20),
+            const TextField(
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
@@ -36,29 +38,29 @@ class LoginPage extends StatelessWidget {
                 prefixIcon: Icon(Icons.lock),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Add login action
               },
-              child: Text('Login'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green, // Set the background color here
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
               ),
+              child: const Text('Login'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextButton(
               onPressed: () {
                 // Add forgot password action
               },
-              child: Text('Forgot Password?'),
+              child: const Text('Forgot Password?'),
             ),
             TextButton(
               onPressed: () {
                 // Navigate to the registration page
               },
-              child: Text('Don\'t have an account? Sign up'),
+              child: const Text('Don\'t have an account? Sign up'),
             ),
           ],
         ),

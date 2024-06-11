@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatelessWidget {
-  final double elementSpacing = 16.0; // Adjust this value to control spacing between elements
+  final double elementSpacing = 16.0;
+
+  const DrawerMenu({super.key}); // Adjust this value to control spacing between elements
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +11,7 @@ class DrawerMenu extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
+          const DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.green,
             ),
@@ -71,7 +73,7 @@ class DrawerMenu extends StatelessWidget {
         title: Center(
           child: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),

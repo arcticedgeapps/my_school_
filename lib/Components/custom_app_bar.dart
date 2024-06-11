@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
-  CustomAppBar({required this.title});
+  const CustomAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +16,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: Icon(Icons.notifications),
+          icon: const Icon(Icons.notifications),
           onPressed: () {
             // Notification action
           },
         ),
-        SizedBox(width: 16), // Adjust the padding to center the title
+        const SizedBox(width: 16), // Adjust the padding to center the title
       ],
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
