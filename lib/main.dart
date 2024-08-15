@@ -15,7 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: FirebaseOptions(
-      apiKey: "AIzaSyBc7Cfm_FjNJ9JMGNUHGZt3qzCSXcBmdNc",
+      apiKey: "",
       projectId: "my-school-life-c707a",
       storageBucket: "my-school-life-c707a.appspot.com",
       messagingSenderId: "711670113190",
