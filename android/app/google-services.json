@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "711670113190",
+    "firebase_url": "https://my-school-life-c707a-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "my-school-life-c707a",
+    "storage_bucket": "my-school-life-c707a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711670113190:android:d67d6cf88f8183f1d86567",
+        "android_client_info": {
+          "package_name": "com.example.mySchoolLife"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc7Cfm_FjNJ9JMGNUHGZt3qzCSXcBmdNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711670113190:android:b7c6505757d0ecd8d86567",
+        "android_client_info": {
+          "package_name": "com.example.my_school_life"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc7Cfm_FjNJ9JMGNUHGZt3qzCSXcBmdNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711670113190:android:aaed28279ddf3af3d86567",
+        "android_client_info": {
+          "package_name": "com.example.my_school_life_cms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc7Cfm_FjNJ9JMGNUHGZt3qzCSXcBmdNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

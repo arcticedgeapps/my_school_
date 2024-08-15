@@ -1,202 +1,204 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_school_life/Components/custom_app_bar.dart';
 import 'package:my_school_life/Components/drawer_menu.dart';
 import 'package:my_school_life/NewsPage.dart';
 import 'package:my_school_life/emergencies_page.dart';
 import 'package:my_school_life/school_contact_info.dart';
-import 'package:my_school_life/services_page.dart';
+import 'package:my_school_life/services_page.dart'; // Import the ServicesPage
 
 class SchoolNamePage extends StatelessWidget {
-  final double elementSpacing = 16.0; // Adjust this value to control spacing between elements
+  final String schoolID;
+  final double elementSpacing = 16.0;
   final double elementWidth = 300.0;
 
-  const SchoolNamePage({super.key}); // Adjust this value to control the width of elements
+  SchoolNamePage({
+    Key? key,
+    required this.schoolID,
+    required String schoolName,
+    required String logoUrl,
+    required String buttonColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: 'My School Life'),
       drawer: const DrawerMenu(),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: elementWidth,
-                  child: const Center(
-                    child: Text(
-                      '[School Name]',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                SizedBox(height: elementSpacing),
-                Container(
-                  width: elementWidth,
-                  height: 200, // Adjust the height as needed
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                  ),
-                  child: const Center(
-                    child: Text('LOGO'),
-                  ),
-                ),
-                SizedBox(height: elementSpacing),
-                SizedBox(
-                  width: elementWidth,
-                  child: const Center(
-                    child: Text(
-                      'School information:',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                SizedBox(height: elementSpacing),
-                SizedBox(
-                  width: elementWidth,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SchoolContactInfoPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.green, // Text color
-                      minimumSize: const Size(double.infinity, 50), // Width and Height
-                      padding: const EdgeInsets.symmetric(horizontal: 20), // Horizontal padding
-                      textStyle: const TextStyle(fontSize: 18), // Text size
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero, // Straight border
+      body: FutureBuilder<DocumentSnapshot>(
+        future: _fetchSchoolData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (!snapshot.hasData || !snapshot.data!.exists) {
+            return Center(child: Text('School not found'));
+          }
+
+          DocumentSnapshot schoolSnapshot = snapshot.data!;
+          String schoolName = schoolSnapshot['schoolName'] ?? 'School Name';
+          String logoUrl = schoolSnapshot['logoUrl'] ?? '';
+          Color buttonColor = _parseColor(schoolSnapshot['buttonColor']);
+
+          return Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: elementWidth,
+                      child: Center(
+                        child: Text(
+                          schoolName,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                    child: const Text('Contact info'),
-                  ),
-                ),
-                SizedBox(height: elementSpacing),
-                SizedBox(
-                  width: elementWidth,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const NewsPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.green, // Text color
-                      minimumSize: const Size(double.infinity, 50), // Width and Height
-                      padding: const EdgeInsets.symmetric(horizontal: 20), // Horizontal padding
-                      textStyle: const TextStyle(fontSize: 18), // Text size
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero, // Straight border
+                    SizedBox(height: elementSpacing),
+                    Container(
+                      width: elementWidth,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        image: logoUrl.isNotEmpty
+                            ? DecorationImage(
+                                image: NetworkImage(logoUrl),
+                                fit: BoxFit.cover,
+                              )
+                            : null,
+                      ),
+                      child: logoUrl.isEmpty
+                          ? Center(child: Text('No Logo Available'))
+                          : null,
+                    ),
+                    SizedBox(height: elementSpacing),
+                    SizedBox(
+                      width: elementWidth,
+                      child: const Center(
+                        child: Text(
+                          'School information:',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                    child: const Text('News'),
-                  ),
-                ),
-                SizedBox(height: elementSpacing),
-                SizedBox(
-                  width: elementWidth,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const EmergenciesPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.green, // Text color
-                      minimumSize: const Size(double.infinity, 50), // Width and Height
-                      padding: const EdgeInsets.symmetric(horizontal: 20), // Horizontal padding
-                      textStyle: const TextStyle(fontSize: 18), // Text size
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero, // Straight border
-                      ),
+                    SizedBox(height: elementSpacing),
+                    _buildButton(
+                      label: 'Contact info',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SchoolContactInfoPage(schoolID: schoolID),
+                          ),
+                        );
+                      },
+                      color: buttonColor,
                     ),
-                    child: const Text('Emergencies'),
-                  ),
-                ),
-                SizedBox(height: elementSpacing),
-                SizedBox(
-                  width: elementWidth,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ServicesPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.green, // Text color
-                      minimumSize: const Size(double.infinity, 50), // Width and Height
-                      padding: const EdgeInsets.symmetric(horizontal: 20), // Horizontal padding
-                      textStyle: const TextStyle(fontSize: 18), // Text size
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero, // Straight border
-                      ),
+                    SizedBox(height: elementSpacing),
+                    _buildButton(
+                      label: 'News',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NewsPage(schoolID: schoolID),
+                          ),
+                        );
+                      },
+                      color: buttonColor,
                     ),
-                    child: const Text('Services'),
-                  ),
-                ),
-                SizedBox(height: elementSpacing),
-                SizedBox(
-                  width: elementWidth,
-                  child: const Center(
-                    child: Text(
-                      'Social links:',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
+                    SizedBox(height: elementSpacing),
+                    _buildButton(
+                      label: 'Emergencies',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                EmergenciesPage(schoolID: schoolID),
+                          ),
+                        );
+                      },
+                      color: buttonColor,
                     ),
-                  ),
-                ),
-                SizedBox(height: elementSpacing),
-                SizedBox(
-                  width: elementWidth,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Add navigation or functionality
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.black, // Text color
-                      minimumSize: const Size(double.infinity, 50), // Width and Height
-                      padding: const EdgeInsets.symmetric(horizontal: 20), // Horizontal padding
-                      textStyle: const TextStyle(fontSize: 18), // Text size
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero, // Straight border
-                      ),
+                    SizedBox(height: elementSpacing),
+                    _buildButton(
+                      label: 'Services', // New Services button
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ServicesPage(schoolID: schoolID),
+                          ),
+                        );
+                      },
+                      color: buttonColor,
                     ),
-                    child: const Text('Facebook'),
-                  ),
+                    SizedBox(height: elementSpacing),
+                  ],
                 ),
-                SizedBox(height: elementSpacing),
-                SizedBox(
-                  width: elementWidth,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Add navigation or functionality
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.black, // Text color
-                      minimumSize: const Size(double.infinity, 50), // Width and Height
-                      padding: const EdgeInsets.symmetric(horizontal: 20), // Horizontal padding
-                      textStyle: const TextStyle(fontSize: 18), // Text size
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero, // Straight border
-                      ),
-                    ),
-                    child: const Text('Instagram'),
-                  ),
-                ),
-              ],
+              ),
             ),
+          );
+        },
+      ),
+    );
+  }
+
+  Future<DocumentSnapshot> _fetchSchoolData() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('schools')
+          .doc(schoolID)
+          .get();
+      return snapshot;
+    } catch (e) {
+      throw Exception('Error fetching school data: $e');
+    }
+  }
+
+  Color _parseColor(String? colorString) {
+    if (colorString != null && colorString.isNotEmpty) {
+      return Color(int.parse(colorString, radix: 16) | 0xFF000000);
+    }
+    return Colors.green; // Default color if not specified
+  }
+
+  Widget _buildButton({
+    required String label,
+    required VoidCallback onPressed,
+    required Color color,
+  }) {
+    return SizedBox(
+      width: elementWidth,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: color,
+          minimumSize: const Size(double.infinity, 50),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          textStyle: const TextStyle(fontSize: 18),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
           ),
         ),
+        child: Text(label),
       ),
     );
   }

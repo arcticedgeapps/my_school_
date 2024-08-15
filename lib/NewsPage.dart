@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NewsPage extends StatelessWidget {
-  const NewsPage({super.key});
+  const NewsPage({super.key, required String schoolID});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,8 @@ class NewsPage extends StatelessWidget {
                   child: const Center(
                     child: Text(
                       'Latest news letter:',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -56,12 +57,15 @@ class NewsPage extends StatelessWidget {
                       // Add functionality to open PDF
                     },
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.black, // Text color
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.black, // Text color
                       textStyle: const TextStyle(fontSize: 18), // Text size
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0), // Rounded corners
+                        borderRadius:
+                            BorderRadius.circular(8.0), // Rounded corners
                       ),
-                      minimumSize: const Size(double.infinity, 50), // Width and Height
+                      minimumSize:
+                          const Size(double.infinity, 50), // Width and Height
                     ),
                     child: const Text('Open PDF'),
                   ),

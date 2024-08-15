@@ -3,10 +3,12 @@ import 'package:my_school_life/Components/custom_app_bar.dart';
 import 'package:my_school_life/Components/drawer_menu.dart';
 
 class EmergenciesPage extends StatelessWidget {
-  const EmergenciesPage({super.key});
+  const EmergenciesPage({super.key, required String schoolID});
 
-  final double elementSpacing = 16.0; // Adjust this value to control spacing between elements
-  final double elementWidth = 300.0; // Adjust this value to control the width of elements
+  final double elementSpacing =
+      16.0; // Adjust this value to control spacing between elements
+  final double elementWidth =
+      300.0; // Adjust this value to control the width of elements
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,8 @@ class EmergenciesPage extends StatelessWidget {
                   child: const Center(
                     child: Text(
                       'Emergency services:',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -36,7 +39,8 @@ class EmergenciesPage extends StatelessWidget {
                   height: 200, // Adjust the height as needed
                   child: const Center(
                     child: Image(
-                      image: NetworkImage('https://example.com/emergency_icon.png'), // Replace with your image URL
+                      image: NetworkImage(
+                          'https://example.com/emergency_icon.png'), // Replace with your image URL
                       height: 100,
                     ),
                   ),
